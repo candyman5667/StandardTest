@@ -36,7 +36,7 @@
         <input type="text" name="second-name" value="{{old('second-name')}}">
         <div class="name-sample">
           <p class="first-name">例）山田</p>
-          <p class="second-name">例）太郎</p>
+          <p class="second-name">例）士郎</p>
         </div>
         @if ($errors->has('fullname'))
         <P class="error-message">{{ $errors-first('fullname') }}</P>
