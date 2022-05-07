@@ -60,4 +60,5 @@
     <a href="/contact">修正する</a>
   </form>
 </div>
+
 @endsection
