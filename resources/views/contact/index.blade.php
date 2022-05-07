@@ -1,101 +1,87 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('common')
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>お問合せフォーム　入力画面</title>
-</head>
-<style>
-  .contact {
-    text-align: center;
-  }
+@section('main')
 
-  .first-name {
-    display: inline-block
-  }
-  .second-name {
-    display: inline-block;
-  }
-
-</style>
-
-<body>
-  @if (count($errors)>0)
-  <p>入力に問題があります</p>
-  @endif
-
-  <div class="contact">
+  <div class="form-group row">
     <h1>お問合せ</h1>
-    <form action="contact.confirm" method="post">
+    <form action="confirm" method="post">
       @csrf
-      <div class="fullname">
+      <div class="tittle">
         <label for="fullname">お名前</label>
+        <span class="alert">※</span>
+        <input type="text" name="last-name" value="{{old('last-name')}}">
         <input type="text" name="first-name" value="{{old('first-name')}}">
-        <input type="text" name="second-name" value="{{old('second-name')}}">
         <div class="name-sample">
-          <p class="first-name">例）山田</p>
-          <p class="second-name">例）士郎</p>
+          <span class="last-name">例）山田</span>
+          <span class="first-name">例）太郎</span>
         </div>
-        @if ($errors->has('fullname'))
-        <P class="error-message">{{ $errors-first('fullname') }}</P>
-        @endif
+        @error('last-name')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        @error('first-name')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
-      <div class="gender">
+      <div class="tittle">
         <label for="gender">性別</label>
-        <input type="radio" name="gender" value="男性" checked>男性
-        <input type="radio" name="gender" value="女性">女性
+        <span class="alert">※</span>
+        <input type="radio" name="gender" value="1" checked>男性
+        <input type="radio" name="gender" value="2">女性
       </div>
 
-      <div class="email">
+      <div class="tittle">
         <label for="email">メールアドレス</label>
+        <span class="alert">※</span>
         <input type="text" name="email" value="{{old('email')}}">
         <div class="mail-sample">
-          <p class="mail-sample">例）test@example.com</p>
+          <span class="mail-sample">例）test@example.com</span>
         </div>
-        @if ($errors->has('email'))
-        <P class="error-message">{{ $errors-first('email') }}</P>
-        @endif
+        @error('email')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
-      <div class="postcode">
+      <div class="tittle">
         <label for="postcode">郵便番号</label>
+        <span class="alert">※</span>
         <span>〒</span>
-        <input type="text" name="postcode" Valu="{{old('postcode')}}" pattern="¥d{3}-¥d{4}[a-z¥d]">
+        <input type="text" name="postcode" Valu="{{old('postcode')}}" pattern="\d{3}-\d{4}" onKeyUp="AjaxZip3.zip2addr(this,'','address','address');" />
         <div class="post-sample">
-          <p class="post-sample">例）123-4567</p>
+          <span class="post-sample">例）123-4567</span>
         </div>
-        @if ($errors->has('postcode'))
-        <P class="error-message">{{ $errors-first('postcode') }}</P>
-        @endif
+        @error('postcode')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
-      <div class="address">
+      <div class="tittle">
         <label for="address">住所</label>
+        <span class="alert">※</span>
         <input type="text" name="address" value="{{old('address')}}">
         <div class="address-sample">
-          <p class="address-sample">例）東京都渋谷区千駄ヶ谷1-2-3</p>
+          <span class="address-sample">例）東京都渋谷区千駄ヶ谷1-2-3</span>
         </div>
-        @if ($errors->has('address'))
-        <P class="error-message">{{ $errors-first('address') }}</P>
-        @endif
+        @error('adress')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
-      <div class="building">
+      <div class="tittle">
         <label for="building">建物名</label>
+        <span class="alert">※</span>
         <input type="text" name="building" value="{{old('building')}}">
         <div class="building-sample">
-          <p class="building-sample">例）千駄ヶ谷マンション101</p>
+          <span class="building-sample">例）千駄ヶ谷マンション101</span>
         </div>
-        @if ($errors->has('building'))
-        <P class="error-message">{{ $errors-first('building') }}</P>
-        @endif
+        @error('building')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
-      <div class="opinion">
+      <div class="tittle">
         <label for="opinion">ご意見</label>
+        <span class="alert">※</span>
         <textarea name="opinion" id="" value="{{old('opinion')}}" cols="30" rows="4"></textarea>
         @if ($errors->has('opinion'))
         <P class="error-message">{{ $errors-first('opinion') }}</P>
@@ -106,6 +92,4 @@
 
     </form>
   </div>
-</body>
-
-</html>
+  @endsection

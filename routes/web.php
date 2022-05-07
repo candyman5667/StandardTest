@@ -17,8 +17,15 @@ use App\Http\Controllers\ContactsController;
 Route::get('/contact',[ContactsController::class,'index'])->name('contact.index');
 
 //確認ページ
-Route::post('/contact/confirm',[ContactsController::class,'confirm'])->name('contact.confirm');
+Route::post('contact/confirm',[ContactsController::class,'confirm'])->name('contact.confirm');
 
 
 //送信完了ページ
-Route::get('/contact/complete',[ContactsController::class,'send'])->name('contact.send');
+Route::post('contact/thanks',[ContactsController::class,'send'])->name('contact.send');
+
+//管理画面ページ
+Route::get('contact/management', [ContactsController::class, 'manage'])->name('contact.manage');
+Route::post('contact/management', [ContactsController::class, 'manage'])->name('contact.manage');
+Route::get('contact/search', [ContactsController::class, 'search'])->name('contact.search');
+Route::post('contact/search', [ContactsController::class, 'search'])->name('contact.search');
+Route::post('contact/delete', [ContactsController::class, 'delete'])->name('contact.delete');
